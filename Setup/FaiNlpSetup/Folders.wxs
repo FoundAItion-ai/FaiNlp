@@ -1,0 +1,29 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" 
+                 Name="!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder">
+      <Component
+          Id="ApplicationShortcutDesktop"
+          Guid="*">
+        <Shortcut Id="ApplicationDesktopShortcut"
+            Name="FoundAItion Nlp Demo"
+            Directory="DesktopFolder"
+            Description="Natural Language Processing Demo by FoundAItion Inc"
+            Target="[INSTALLFOLDER]FaiNlp.exe"
+            WorkingDirectory="INSTALLFOLDER"/>
+        <RegistryValue
+            Root="HKCU"
+            Key="Software\FoundAition\FaiNlp"
+            Name="installed"
+            Type="integer"
+            Value="1"
+            KeyPath="yes"/>
+      </Component>
+    </StandardDirectory>
+
+  </Fragment>
+</Wix>

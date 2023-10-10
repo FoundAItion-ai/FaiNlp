@@ -1,0 +1,10 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="FaiNlp" Manufacturer="FoundAItion" Version="1.2.12.1" UpgradeCode="7be53669-c458-449a-ad69-f2b904f22419">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+    <Feature Id="Main">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcutDesktop"/>
+    </Feature>
+  </Package>
+</Wix>
