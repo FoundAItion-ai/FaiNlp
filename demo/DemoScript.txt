@@ -1,0 +1,69 @@
+
+******* Intro ******* 
+
+show all pages / settings / ingest / chat / diagram
+
+******* general chat / prompt engineering ******* 
+
+hi \r
+tell me about Boston in 10 lines \r
+
+******* function calling ******* 
+
+Show me a plot of all natural numbers starting from one and going up to ten  \r
+Show me a plot of all natural numbers starting from one and going up to ten  "Run"
+Would you be able to create a comprehensive graphical representation that includes all of the natural numbers in sequential order, starting from the initial point of one and extending all the way through to the endpoint of ten?
+Would you be able to create a comprehensive graphical representation that includes all of the natural numbers in sequential order, starting from the initial point of one and extending all the way through to the endpoint of ten?  "Run"
+Would you be capable of showing a bar chart showing fifteen distinct numbers where each of these numbers should be selected at random from a range that begins at the minimum numerical value of one and extends up to the maximum numerical value of fifty.    "Run"
+
+Show C:\Program Files (x86)\FoundAItion\FaiNlp\demo\
+DemoData.txt.corp 
+
+Could you display a chart illustrating the corporate's annual revenue?  "Run"
+Please load the local data on salaries and visualize it using a line plot. 
+Then, import the pricing data and depict it as a scatter graph.  "Run"
+
+adjust 
+C:\Program Files (x86)\FoundAItion\FaiNlp\demo\
+DemoData.txt.article 
+
+Show me the stored number of patients for each type, and then show the number of the most common adverse events.
+
+
+
+******* Text-To-Image and image recognition ******* 
+
+show me a large blue question mark for my presentation "Run"
+is it a question or exclamation or comma or semicolon? "Photo"
+is it a cat or a dog or maybe a bird? "Photo"
+is it a number or question or comma or semicolon? "Photo"
+
+******* RAG ******* 
+
+"RESET STORAGE"
+
+tell me about FoundAItion Inc \r
+give me a definition of natural neural network \r
+who is alex fedosov? \r
+
+C:\Info\Projects\Docs\FoundAItion\Source\Samples\dmalex\demo\data\ "ingest"
+
+give me a definition of natural neural network \r "Use context"
+tell me about FoundAItion Inc \r "Use context"  and note SOURCE:
+give definition of natural neural network \r "Use context"
+
+who is alex fedosov? \r "Use context"
+who is alex feosov? \r "Use context"
+Who is Artem Abramian?
+
+foundaition.org "ingest"
+
+Who is Artem Abramian?
+who is alex fedosov? \r
+who is alex feosov? \r
+
+******* Text-To-Voice and voice recognition ******* 
+
+hi "play"
+tell me about Boston in 1 sentence"voice"
+

@@ -1,0 +1,129 @@
+FaiNlp Windows desktop app
+
+goals:
+
+1) Demo Generative AI capabilities
+
+a) general chat functionality
+b) OpenAI API function calls (half-security)
+c) In-Context Learning / RAG retrieval augmented generation
+d) offline Voice-to-text, offline text-to-voice, offline image-to-text, online text-to-image
+e) Fine-tuning model - not done, need it? expensive, but can use uploaded files
+
+
+2) Try/learn/develop technology stack
+
+a) Used Python, OpenAI API, kivy UI, pyinstaller, plotly, pyttsx3, pyaudio, vosk
+
+use langchain for embeddigns, however openai can do it too - openai.embeddings_utils.distances_from_embeddings
+
+-maybe switch to LanceDB? or / and use Sentence Transformers (default chroma db emdeddings) for embeddings https://www.sbert.net/docs/pretrained_models.html#model-overview
+
+
+b) Design notes/questions:
+
+-interestingly enough system request like this 
+{"role": "system", "content": "Don't make assumptions about what values to plug into functions. Ask for clarification if a user request is ambiguous or no arguments provided."}
+works well for gpt-3.5 model, but gpt-4 is taking it more seriously and refuse many reqests as can not deduce 
+arguments and so doesn't make a function calls
+
+Open AI issues with funciton naming: functions.ShowMeGraph, valid ShowMeGraph
+
+<OpenAIObject at 0x240835c9a30> JSON: {
+  "role": "assistant",
+  "content": null,
+  "function_call": {
+    "name": "functions.ShowMeGraph",
+    "arguments": "{\n  \"data\": [100, 200, 350, 50, 20],\n  \"style\": \"bar\"\n}"
+  }
+
+
+-langchain or OpenAI API weird issues - valid prompt with data, can't answer correctly, but Web CHatGPT 4.0 can
+ while 3.5 can't. Still 4.0 via API fails for some reason!
+ openai.py : def _generate() breakpoint
+
+-chromadb is not 100% compatible with pyInstaller - may need to remove from chromadb\db\impl\sqlite.py SqliteDB().__init__  self._migration_imports = []
+or --add-data=Lib\site-packages\chromadb\migrations\metadb;chromadb\migrations\metadb ^
+
+-KivyMD Tooltips or hovering is not working on Windows 
+https://kivymd.readthedocs.io/en/1.1.1/components/tooltip/#kivymd.uix.tooltip.tooltip.MDTooltip.animation_tooltip_show
+
+-mathplotlib crashes often on gc, replaced with plotly (extra child processes, kaleidly)
+-voice recognition is slow and not stable
+-openai needs low level timeout, otherwise may hang for a while
+-play with embeddings, how size of chunks would affect quality?
+-performance (diff models, ADA for embeddings), image recog "ViT-B/32" model, ~300Mb, \Users\DMAle\.cache\clip\ViT-B-32.pt 
+-stability overall
+-testing, unit testing, Adversarial testing, Human in the loop (HITL)
+-security, https://platform.openai.com/docs/guides/safety-best-practices, https://openai.com/security
+	Moderation OpenAI API, classify as hate/harassment/etc / The moderations endpoint is a tool you can use to check whether content complies with OpenAI's usage policies
+	Prompt engineering (guide/focus/steps/examples)
+ 	“Know your customer” (KYC) Users should generally need to register and log-in to access your service
+	Constrain user input and limit output tokens
+	Allow users to report issues
+	Understand and communicate limitations
+	End-user IDs, Sending end-user IDs in your requests via the "user" parameter 
+-scalability (choose PineCone for demo, Elastic for plod?)
+-focus on interoperability, use generic JSON for interim API, not lib-oriented API (elastic optimized for text search)
+-cost control, Open AI rate limiting? (track tokens use, think about local model / Hugging face?)
+-productionize - https://platform.openai.com/docs/guides/production-best-practices
+	Setting up your organization account
+	Managing billing limits
+	Managing rate limits
+	Improving latencies - right Model / Streaming or Batching / Infrastructure (US/region cloud) / Number of completion tokens
+	Managing API keys
+	Separate staging and prod accounts
+	Horizontal (deploying additional servers or containers to distribute the load)
+		and Vertical scaling (beef up the resources available to a single node)
+	Caching: By storing frequently accessed data, you can improve response times 
+	Load balancing: to ensure requests are distributed evenly across your available servers
+	
+-look at AWS BI / IBM WatsonX / Google ..?
+-try images/audio as embeddings
+
+c) modular design, features are suitable for use from web app as well!
+
+In-Context Learning design:
+
+-data ingestion types - for text / images / audio / video / multimodal documents 
+ WINS framework - Words, Images, Numbers and Sounds
+ PDF can be OCRed but there may be real pictures/photos inside - split and save as related vectors?
+
+-data ingestion sources - web, files, live input stream, ...?
+-HITL, there may be interaction with human to correct documents (raw ingestion -> correction)
+-ingested data properties (metadata): 
+	source/page 		file, text, pdf
+	source/start/stop 	file, video, audio
+	source/region 		file, image
+	hash/timestamp		to skip already ingested files
+	confidence % 		all types, quality of ingestion
+	ingestion time 		sec, all types, for profiling/debugging
+	size 			bytes, all types, for profiling/debugging
+	encoding(s) 		all types, maybe mixed encodings
+
+
+3) Develop basic lib for the stack
+
+FaiCommon / OAIAccess.py VoiceCog.py ImageCog.py RAGManager.py 
+
+
+4) TODO:
+
+0) add it to foundaition.org as a corporate chat
+0) integrate with Code Interpreter? How, no API
+0) can we do image-to-text with OpenAI? and demo insurance triage using it? 
++CLIP for zero-shot classification
++add all models to settings page
+-check pyinstaller actual installation option / add image model to setup - no such thing, unpack and create MSI
+show logo while models are being loaded
+add PDF OCR reading
+      
+
++a) maybe add ML with TensorFlow or PyTorch (image zero-shot classification)
+b) can we integrate Wolfram lang?
+c) direct integration with Zapier plugins
+d) write as a Zapier / ChatGPT plugins (at least local)?
+e) demo Al's fast training technology? integrate somehow?
+f) re-build on Mac/Linux / mobile?
+g) open source as learning tool / workshop demo? Record workshop demos / add slides about tech and stack
+h) think about security (data anonymizer / hash / etc?)
