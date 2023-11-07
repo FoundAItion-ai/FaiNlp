@@ -3,6 +3,10 @@ rem.
 rem python -m venv FaiNlp 
 rem pip freeze > requirements.txt
 rem pip install -r requirements.txt
+rem. *****************************************
+rem The 'pathlib' package is an obsolete backport of a standard library package and is incompatible with PyInstaller. 
+rem pip uninstall pathlib
+rem. *****************************************
 rem set PYTHONPATH=C:\Info\Projects\Docs\FoundAItion\Source\FaiNlp\src
 
 

@@ -4,7 +4,7 @@ Copyright   :   FoundAItion Inc.
 Description :   Application entry point and UI classes
 Written by  :   Alex Fedosov
 Created     :   06/26/2023
-Updated     :   07/26/2023
+Updated     :   10/16/2023
 """
 
 try:
@@ -16,25 +16,19 @@ try:
 except ImportError:
     pass
 
-from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.image import Image as CoreImage
 from kivy.core.window import Window
 from kivy.resources import resource_add_path, resource_find
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
-from kivy.uix.pagelayout import PageLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
-from kivy.utils import get_color_from_hex
 from kivy.metrics import dp
 
 from kivymd.app import MDApp
 from kivymd.uix.button import MDRoundFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.dropdownitem import MDDropDownItem
-from kivymd.uix.list import OneLineListItem
 from kivymd.uix.label import MDLabel
 from kivymd.uix.menu import MDDropdownMenu
 from kivymd.uix.screen import MDScreen
@@ -79,7 +73,7 @@ class FeatureFlags:
 
 
 if FeatureFlags.FULL_VERSION:
-    from FaiCommon.VoiceCog import VoiceCog, VoicePlayer, VoicePlayerAsync
+    from FaiCommon.VoiceCog import VoiceCog, VoicePlayerAsync
     from FaiCommon.ImageCog import ImageCog
 
 
@@ -126,10 +120,15 @@ class CustomOneLineListItem(MDDropDownItem):
 class RootWidget(MDScreen):
 
     # maybe use .pydantic to simplify schema construction?
+    #
+    # =======>         https://jsonlint.com           <=======
+    # =======> Also DO VALIDATE JSON before execution <=======
+    # =======>                                        <=======
+    #
     FN_DECLARATION = [
         {
             "name": "ShowMeGraph",
-            "description": "Show a graphof numbers in array",
+            "description": "Show a graph of numbers in array",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -138,15 +137,15 @@ class RootWidget(MDScreen):
                         "items": {
                             "type": "number"
                         },
-                        "description": "array of numbers",
+                        "description": "array of numbers"
                     },
                     "style": {
                         "type": "string", 
                         "enum": ["bar", "plot", "scatter"]
                     }
                 },
-                "required": ["data"],
-            },
+                "required": ["data"]
+            }
         },
         {
             "name": "VisualizeObject",
@@ -156,29 +155,30 @@ class RootWidget(MDScreen):
                 "properties": {
                     "description": {
                         "type": "string",
-                        "description": "Object description",
-                    },
+                        "description": "Object description"
+                    }
                 },
-                "required": ["description"],
-            },
+                "required": ["description"]
+            }
         },
         {
             "name": "LoadData",
             "description": "Load or get or fetch or retrieve data from local, corporate's storage",
-            #"description": "Load or get or fetch or retrieve a data of this type only - price, salary, amount",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "datatype": {
                         "type": "string",
-                        "description": "What type of data should be loaded from local corporate's data storage",
-                        #"enum": ["price", "salary", "amount"]
-                    },
+                        "description": "What type of data should be loaded from local corporate's data storage"
+                    }
                 },
-                "required": ["datatype"],
-            },
-        },
+                "required": ["datatype"]
+            }
+        }
     ]
+    # or
+    #"description": "Load or get or fetch or retrieve a data of this type only - price, salary, amount",
+    #"enum": ["price", "salary", "amount"]
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

@@ -7,5 +7,5 @@ rem git push origin v1.2.15
 
 rem run release
 rem.
-rem call C:\Info\Projects\Docs\FoundAItion\Source\FaiNlp\Scripts\activate.bat
-rem python src\FaiNlp\FaiNlp.py
+call C:\Info\Projects\Docs\FoundAItion\Source\FaiNlp\Scripts\activate.bat
+python src\FaiNlp\FaiNlp.py

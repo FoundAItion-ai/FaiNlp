@@ -52,9 +52,12 @@ https://kivymd.readthedocs.io/en/1.1.1/components/tooltip/#kivymd.uix.tooltip.to
 -voice recognition is slow and not stable
 -openai needs low level timeout, otherwise may hang for a while
 -play with embeddings, how size of chunks would affect quality?
+-for chatbots use multi-LLM setup with routing 
+-version control for prompts
 -performance (diff models, ADA for embeddings), image recog "ViT-B/32" model, ~300Mb, \Users\DMAle\.cache\clip\ViT-B-32.pt 
 -stability overall
 -testing, unit testing, Adversarial testing, Human in the loop (HITL)
+ prompt regression testing, system level testing (end-to-end?)
 -security, https://platform.openai.com/docs/guides/safety-best-practices, https://openai.com/security
 	Moderation OpenAI API, classify as hate/harassment/etc / The moderations endpoint is a tool you can use to check whether content complies with OpenAI's usage policies
 	Prompt engineering (guide/focus/steps/examples)
